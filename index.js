@@ -8,7 +8,7 @@ const err404 = fs.readFileSync(path.join(__dirname, 'page', '404.html'), 'utf-8'
 
 const server = http.createServer((req, res) => {
   if (req.url === "/") {
-    fs.readFile(path.join(__dirname, "page", "index.html"), (err, data) => {
+    fs.readFileSync(path.join(__dirname, "page", "index.html"), (err, data) => {
       if (err){
         res.writeHead(404,{ "Content-Type": "text/html" })
         res.end(err404)
@@ -19,7 +19,7 @@ const server = http.createServer((req, res) => {
     });
   }
   else if (req.url === "/about") {
-    fs.readFile(path.join(__dirname, "page", "about.html"), (err, data) => {
+    fs.readFileSync(path.join(__dirname, "page", "about.html"), (err, data) => {
       if (err) {
         res.writeHead(404, { "Content-Type": "text/html" });
         res.end(err404);
