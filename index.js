@@ -3,23 +3,25 @@ const path = require("path");
 const fs = require("fs");
 require("dotenv").config();
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 8080;
 
-const err404 = fs.readFileSync(path.join(__dirname, 'page', '404.html'), 'utf-8');
+const err404 = fs.readFileSync(
+  path.join(__dirname, "page", "404.html"),
+  "utf-8"
+);
 
 const server = http.createServer((req, res) => {
   if (req.url === "/") {
     fs.readFile(path.join(__dirname, "page", "index.html"), (err, data) => {
-      if (err){
-        res.writeHead(404,{ "Content-Type": "text/html" })
-        res.end(err404)
+      if (err) {
+        res.writeHead(404, { "Content-Type": "text/html" });
+        res.end(err404);
         return;
-      };
+      }
       res.writeHead(200, { "Content-Type": "text/html" });
       res.end(data);
     });
-  }
-  else if (req.url === "/about") {
+  } else if (req.url === "/about") {
     fs.readFile(path.join(__dirname, "page", "about.html"), (err, data) => {
       if (err) {
         res.writeHead(404, { "Content-Type": "text/html" });
@@ -29,7 +31,17 @@ const server = http.createServer((req, res) => {
       res.writeHead(200, { "Content-Type": "text/html" });
       res.end(data);
     });
-  }else {
+  } else if (req.url === "/contact-me") {
+    fs.readFile(path.join(__dirname, "page", "contact-me.html"), (err, data) => {
+      if (err) {
+        res.writeHead(404, { "Content-Type": "text/html" });
+        res.end(err404);
+        return;
+      }
+      res.writeHead(200, { "Content-Type": "text/html" });
+      res.end(data);
+    });
+  } else {
     res.writeHead(404, { "Content-Type": "text/html" });
     res.end(err404);
   }
